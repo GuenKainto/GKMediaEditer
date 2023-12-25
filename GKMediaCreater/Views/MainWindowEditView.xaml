@@ -73,7 +73,7 @@
                             <TextBlock HorizontalAlignment="Center" Text="Video Editer" />
                         </StackPanel>
                     </TabItem.Header>
-                    <Grid Margin="30">
+                    <Grid>
                         <local:EditVideoView/>
                     </Grid>
                 </TabItem>
