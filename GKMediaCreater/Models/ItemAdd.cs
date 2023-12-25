@@ -7,7 +7,7 @@ namespace GKMediaCreater.Models
 {
     public class ItemAdd : BaseNotifyPropertyChanged
     {
-        private string _iconKind;//fix type
+        private string _iconKind;
         public string IconKind
         {
             get => _iconKind;
@@ -111,8 +111,18 @@ namespace GKMediaCreater.Models
                 {
                     return "FileImageOutline";
                 }
+                else if (IsSubtitleExtension(extension))
+                {
+                    return "SubtitlesOutline";
+                }
             }
             return "FileAlertOutline";
+        }
+
+        private bool IsSubtitleExtension(string extension)
+        {
+            string[] subtitleExtensions = { ".srt" };
+            return subtitleExtensions.Contains(extension);
         }
 
         private bool IsImageExtension(string extension)

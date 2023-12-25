@@ -58,8 +58,8 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2.5*"/>
-                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
                 <!--List item add-->
@@ -68,11 +68,21 @@
                         BorderThickness="2">
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ToolBarTray Grid.Row="0">
+                        <!--Review Item-->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                        </Grid>
+                        
+                        <ToolBarTray Grid.Row="1">
                             <ToolBar ClipToBounds="False"
                                      Style="{StaticResource MaterialDesignToolBar}">
                                 <Button Content="{materialDesign:PackIcon Kind=FilePlusOutline}"
@@ -82,7 +92,8 @@
                             </ToolBar>
                         </ToolBarTray>
 
-                        <ListView Grid.Row="1" HorizontalContentAlignment="Stretch"
+                        <ListView Grid.Row="2" HorizontalContentAlignment="Stretch"
+                                  Name="ItemAddListView"
                                   ItemsSource="{Binding ListItemAdd, Mode=TwoWay ,UpdateSourceTrigger=PropertyChanged}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -107,19 +118,53 @@
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
+
+                            <!--ContextMenu-->
+                            <ItemsControl.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Add to list" 
+                                              Command="{Binding AddToListCommand }"
+                                              CommandParameter="{Binding Path=PlacementTarget.SelectedItems,
+                                                                 RelativeSource={RelativeSource FindAncestor, 
+                                                                                 AncestorType={x:Type ContextMenu}
+                                                                                 }
+                                                                 }">
+                                        <MenuItem.Icon>
+                                            <materialDesign:PackIcon Kind="FileMoveOutline"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="Delete"
+                                              Command="{Binding DeleteItemCommand}"
+                                              CommandParameter="{Binding Path=PlacementTarget.SelectedItems,
+                                                                RelativeSource={RelativeSource FindAncestor, 
+                                                                                AncestorType={x:Type ContextMenu}
+                                                                                }
+                                                                }">
+                                        <MenuItem.Icon>
+                                            <materialDesign:PackIcon Kind="Delete"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </ItemsControl.ContextMenu>
                         </ListView>
                     </Grid>
                 </Border>
                 
                 <!--Properties of item-->
-                <Grid Grid.Column="1">
+                <Border Grid.Column="1" BorderBrush="Black"
+                        BorderThickness="2">
+                    <Grid>
 
-                </Grid>
+                    </Grid>
+                </Border>
 
                 <!--Video demo-->
-                <Grid Grid.Column="2">
-                    
-                </Grid>
+                <Border Grid.Column="2" BorderBrush="Black"
+                        BorderThickness="2">
+                    <Grid>
+
+                    </Grid>
+                </Border>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -127,6 +172,85 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" BorderBrush="Black"
+                        BorderThickness="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Background="#FF212121"
+                                   Text="List files input" Padding="10 0 0 0" />
+
+                        <ListView Grid.Row="1" HorizontalContentAlignment="Stretch"
+                                  Name="ItemInputListView"
+                                  ItemsSource="{Binding ListItemInput, Mode=TwoWay ,UpdateSourceTrigger=PropertyChanged}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text="{Binding Id}"
+                                                   Margin="5 0 5 0"
+                                                   Grid.Column="0"/>
+                                        <materialDesign:PackIcon Kind="{Binding IconKind}"
+                                                                 Grid.Column="1"/>
+                                        <TextBlock Text="{Binding FileName}" 
+                                                   Margin="5,0,5,0"
+                                                   Grid.Column="2"
+                                                   MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding FileSize}" 
+                                                   HorizontalAlignment="Right"
+                                                   Grid.Column="3"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                            <!--ContextMenu-->
+                            <ItemsControl.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Properties" 
+                                              Command="{Binding PropertiesItemInputCommand}"
+                                              CommandParameter="{Binding Path=PlacementTarget.SelectedItems,
+                                                                 RelativeSource={RelativeSource FindAncestor, 
+                                                                                 AncestorType={x:Type ContextMenu}
+                                                                                }
+                                                                }">
+                                        <MenuItem.Icon>
+                                            <materialDesign:PackIcon Kind="FileDocumentOutline"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="Delete"
+                                              Command="{Binding DeleteItemInputCommand}"
+                                              CommandParameter="{Binding Path=PlacementTarget.SelectedItems,
+                                                                RelativeSource={RelativeSource FindAncestor, 
+                                                                                AncestorType={x:Type ContextMenu}
+                                                                                }
+                                                                }">
+                                        <MenuItem.Icon>
+                                            <materialDesign:PackIcon Kind="Delete"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </ItemsControl.ContextMenu>
+                        </ListView>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" BorderBrush="Black"
+                        BorderThickness="2">
+                    <Grid>
+
+                    </Grid>
+                </Border>
+
             </Grid>
         </Grid>
     </Grid>

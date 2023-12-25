@@ -85,6 +85,7 @@
     <Compile Include="Interfaces\BindableBase.cs" />
     <Compile Include="Interfaces\VfxCommand.cs" />
     <Compile Include="Models\ItemAdd.cs" />
+    <Compile Include="Models\ItemInput.cs" />
     <Compile Include="ViewModels\EditVideoViewModel.cs" />
     <Compile Include="ViewModels\MainWindowEditViewModel.cs" />
     <Compile Include="Views\EditVideoView.xaml.cs">
