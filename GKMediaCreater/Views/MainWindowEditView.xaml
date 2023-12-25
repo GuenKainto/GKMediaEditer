@@ -1,0 +1,83 @@
+﻿<Window x:Class="GKMediaCreater.Views.MainWindowEditView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GKMediaCreater.Views"
+        xmlns:viewModels="clr-namespace:GKMediaCreater.ViewModels"
+        mc:Ignorable="d" WindowState="Maximized" 
+        WindowStartupLocation="CenterScreen"
+        Title="GKMediaEditer" Height="720" Width="1280" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="20"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Window.DataContext>
+        <viewModels:MainWindowEditViewModel/>
+    </Window.DataContext>
+    
+    <Grid>
+        <materialDesign:Card>
+            <TabControl materialDesign:NavigationRailAssist.ShowSelectionBackground="True"
+                materialDesign:ColorZoneAssist.Mode="Standard"
+                materialDesign:ElevationAssist.Elevation="Dp16"
+                materialDesign:TabAssist.HasUniformTabWidth="True"
+                SnapsToDevicePixels="True"
+                Style="{StaticResource MaterialDesignNavigationRailTabControl}"
+                TabStripPlacement="Left">
+                <materialDesign:NavigationRailAssist.FloatingContent>
+                    <!--Avata and Username-->
+                    <StackPanel Margin="20 40 20 50">
+                        <!--<Border BorderBrush="{DynamicResource MaterialDesignBody}" 
+                                BorderThickness="2" 
+                                CornerRadius="25"
+                                Width="85" Height="85">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding AvataSource, Mode=OneWay, 
+                                                         UpdateSourceTrigger=PropertyChanged}" Stretch="Fill"/>
+                            </Border.Background>
+                        </Border>
+
+                        <Label HorizontalAlignment="Center"
+                               Content="{Binding Username, Mode=OneWay, 
+                                        UpdateSourceTrigger=PropertyChanged}"/>-->
+                    </StackPanel>
+                </materialDesign:NavigationRailAssist.FloatingContent>
+
+                <!--HomeTap-->
+                <TabItem Width="125">
+                    <TabItem.Header>
+                        <StackPanel Width="auto" Height="auto">
+                            <materialDesign:PackIcon Width="24" Height="24"
+                                             HorizontalAlignment="Center"
+                                             Kind="Home"/>
+                            <TextBlock HorizontalAlignment="Center" Text="Home" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="30">
+
+                    </Grid>
+                </TabItem>
+                
+                <!--VideoTap-->
+                <TabItem Width="125">
+                    <TabItem.Header>
+                        <StackPanel Width="auto" Height="auto">
+                            <materialDesign:PackIcon Width="24" Height="24"
+                                                     HorizontalAlignment="Center"
+                                                     Kind="Video" />
+                            <TextBlock HorizontalAlignment="Center" Text="Video Editer" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="30">
+                        <local:EditVideoView/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </materialDesign:Card>
+    </Grid>
+</Window>
