@@ -1,8 +1,12 @@
 ﻿using GKMedia.Interfaces;
 using GKMediaCreater.Models;
 using Microsoft.Win32;
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Runtime.Remoting.Channels;
+using System.Windows;
+using Xabe.FFmpeg;
 
 namespace GKMediaCreater.ViewModels
 {
@@ -120,6 +124,21 @@ namespace GKMediaCreater.ViewModels
                 RemoveAndRefreshIds(ItemInputSelected);
             }
         }
+
+        public VfxCommand ItemAddSelectionChangedCommand { get; set; }
+        private void OnItemAddSelectionChanged(object obj)
+        {
+            if (obj is null) MessageBox.Show("null");
+
+            if (obj is IEnumerable selectedItems)
+            {
+                foreach (var selectedItem in selectedItems)
+                {
+                    ItemSelected = (ItemAdd)selectedItem;
+                }
+                ShowProperties(ItemSelected.FilePath);
+            }
+        }
         #endregion
 
         public EditVideoViewModel()
@@ -132,9 +151,10 @@ namespace GKMediaCreater.ViewModels
             PropertiesItemInputCommand = new VfxCommand(OnPropertiesItemInput, () => true);
             DeleteItemCommand = new VfxCommand(OnDeleteItem, () => true);
             DeleteItemInputCommand = new VfxCommand(OnDeleteItemInput, () => true);
+            ItemAddSelectionChangedCommand = new VfxCommand(OnItemAddSelectionChanged, () => true);
         }
 
-        public void RemoveAndRefreshIds(ItemInput itemToRemove)
+        private void RemoveAndRefreshIds(ItemInput itemToRemove)
         {
             int indexToRemove = ListItemInput.IndexOf(itemToRemove);
             ListItemInput.Remove(itemToRemove);
@@ -142,6 +162,12 @@ namespace GKMediaCreater.ViewModels
             {
                 ListItemInput[i].Id = i;
             }
+        }
+        
+        private void ShowProperties(string inputFile)
+        {
+            var probeResult = FFmpeg.GetMediaInfo(inputFile);
+            MessageBox.Show(probeResult.ToString());
         }
     }
 }

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GKMediaCreater.Views"
              xmlns:viewModels="clr-namespace:GKMediaCreater.ViewModels"
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" Name="_this"
              MinHeight="720" MinWidth="1155"
              HorizontalAlignment="Stretch"
@@ -110,7 +111,7 @@
                                                    Margin="5,0,5,0"
                                                    Grid.Column="1"
                                                    MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                   TextTrimming="CharacterEllipsis"/>
+                                                   TextTrimming="CharacterEllipsis"/> 
 
                                         <TextBlock Text="{Binding FileSize}" 
                                                    HorizontalAlignment="Right"
@@ -118,6 +119,18 @@
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
+
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="SelectionChanged">
+                                    <behaviors:InvokeCommandAction Command="{Binding ItemAddSelectionChangedCommand}"
+                                                                   CommandParameter="{Binding Path=PlacementTarget.SelectedItems,
+                                                                                      RelativeSource={RelativeSource FindAncestor, 
+                                                                                                      AncestorType={x:Type ContextMenu}
+                                                                                                      }
+                                                                                      }">
+                                    </behaviors:InvokeCommandAction>
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
 
                             <!--ContextMenu-->
                             <ItemsControl.ContextMenu>

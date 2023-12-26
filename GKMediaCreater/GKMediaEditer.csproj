@@ -61,6 +61,9 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -75,6 +78,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xabe.FFmpeg, Version=5.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xabe.FFmpeg.5.2.6\lib\netstandard2.0\Xabe.FFmpeg.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -85,7 +91,10 @@
     <Compile Include="Interfaces\BindableBase.cs" />
     <Compile Include="Interfaces\VfxCommand.cs" />
     <Compile Include="Models\ItemAdd.cs" />
+    <Compile Include="Models\ItemAudio.cs" />
     <Compile Include="Models\ItemInput.cs" />
+    <Compile Include="Models\ItemSubtitle.cs" />
+    <Compile Include="Models\ItemVideo.cs" />
     <Compile Include="ViewModels\EditVideoViewModel.cs" />
     <Compile Include="ViewModels\MainWindowEditViewModel.cs" />
     <Compile Include="Views\EditVideoView.xaml.cs">
