@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Windows;
 
 namespace GKMediaCreater.Models
 {
@@ -125,7 +126,7 @@ namespace GKMediaCreater.Models
             return subtitleExtensions.Contains(extension);
         }
 
-        private bool IsImageExtension(string extension)
+        private bool IsVideoExtension(string extension)
         {
             string[] videoExtensions = { ".mp4", ".avi", ".mkv", ".mov", ".wmv" };
             return videoExtensions.Contains(extension);
@@ -137,7 +138,7 @@ namespace GKMediaCreater.Models
             return audioExtensions.Contains(extension);
         }
 
-        private bool IsVideoExtension(string extension)
+        private bool IsImageExtension(string extension)
         {
             string[] imageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
             return imageExtensions.Contains(extension);

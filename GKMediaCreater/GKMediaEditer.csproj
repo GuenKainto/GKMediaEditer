@@ -87,6 +87,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\MyConveter.cs" />
     <Compile Include="Interfaces\BaseNotifyPropertyChanged.cs" />
     <Compile Include="Interfaces\BindableBase.cs" />
     <Compile Include="Interfaces\VfxCommand.cs" />

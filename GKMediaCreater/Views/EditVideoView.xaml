@@ -77,10 +77,78 @@
                         <!--Review Item-->
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             
+                            <!--Thumbnail-->
+                            <Grid Grid.Column="0">
+                                <Image Source="{Binding ItemThumbnail}" MaxHeight="100"/>
+                            </Grid>
+                            
+                            <!--info-->
+                            <Grid Grid.Column="1">
+                                <StackPanel>
+                                    <!--Size-->
+                                    <Grid Margin="0 2.5 0 0"> 
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="Size" FontSize="12"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding SizeItemAdd}" FontSize="12"/>
+                                    </Grid>
+
+                                    <!--Type File-->
+                                    <Grid Margin="0 2.5 0 0"> 
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="Type" FontSize="12"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding TypeItemAdd}" FontSize="12"/>
+                                    </Grid>
+
+                                    <!--Resolution-->
+                                    <Grid Margin="0 2.5 0 0"
+                                          Visibility="{Binding ResolutionVisibility}"> 
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="Resolution" FontSize="12"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding ResolutionItemAdd}" FontSize="12"/>
+                                    </Grid>
+
+                                    <!--Duration-->
+                                    <Grid Margin="0 2.5 0 0"
+                                          Visibility="{Binding DurationVisibility}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="Duration" FontSize="12"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding DurationItemAdd}" FontSize="12"/>
+                                    </Grid>
+
+                                    <!--fps-->
+                                    <Grid Margin="0 2.5 0 0"
+                                          Visibility="{Binding FpsVisibility}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="FPS" FontSize="12"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding FpsItemAdd}" FontSize="12"/>
+                                    </Grid>
+
+                                </StackPanel>
+                            </Grid>
                         </Grid>
                         
                         <ToolBarTray Grid.Row="1">
@@ -94,7 +162,7 @@
                         </ToolBarTray>
 
                         <ListView Grid.Row="2" HorizontalContentAlignment="Stretch"
-                                  Name="ItemAddListView"
+                                  Name="ItemAddListView" SelectionMode="Single"
                                   ItemsSource="{Binding ListItemAdd, Mode=TwoWay ,UpdateSourceTrigger=PropertyChanged}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -106,15 +174,18 @@
                                         </Grid.ColumnDefinitions>
 
                                         <materialDesign:PackIcon Kind="{Binding IconKind}"
-                                                                 Grid.Column="0"/>
-                                        <TextBlock Text="{Binding FileName}" 
-                                                   Margin="5,0,5,0"
-                                                   Grid.Column="1"
-                                                   MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                                 Grid.Column="0" Width="24" Height="24"/>
+                                        <TextBlock Text="{Binding FilePath, 
+                                                          Converter={StaticResource PathToNameFileConverter}}" 
+                                                   Margin="5 0 5 0" Grid.Column="1"
+                                                   VerticalAlignment="Center"
+                                                   MaxWidth="{Binding ActualWidth, 
+                                                              RelativeSource={RelativeSource AncestorType=ListView}}"
                                                    TextTrimming="CharacterEllipsis"/> 
 
                                         <TextBlock Text="{Binding FileSize}" 
                                                    HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
                                                    Grid.Column="2"/>
                                     </Grid>
                                 </DataTemplate>
@@ -123,11 +194,7 @@
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="SelectionChanged">
                                     <behaviors:InvokeCommandAction Command="{Binding ItemAddSelectionChangedCommand}"
-                                                                   CommandParameter="{Binding Path=PlacementTarget.SelectedItems,
-                                                                                      RelativeSource={RelativeSource FindAncestor, 
-                                                                                                      AncestorType={x:Type ContextMenu}
-                                                                                                      }
-                                                                                      }">
+                                                                   CommandParameter="{Binding ElementName=ItemAddListView,Path=SelectedItem}">
                                     </behaviors:InvokeCommandAction>
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
